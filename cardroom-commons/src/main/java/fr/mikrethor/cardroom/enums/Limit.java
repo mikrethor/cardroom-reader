@@ -2,12 +2,12 @@ package fr.mikrethor.cardroom.enums;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.NoArgsConstructor;
 
 /**
- * Handled currency.
+ * Enum ( 'No limit' 'Pot limit' 'Fixed limit').
  * 
  * @author Thor
  *
@@ -15,30 +15,30 @@ import lombok.NoArgsConstructor;
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public enum Currency {
-	/**
-	 * Euro.
-	 */
-	EURO("\u20AC", "EUR"),
-	/**
-	 * US Dollars.
-	 */
-	USD("\u0024", "USD"),
-	/**
-	 * Pound sterling.
-	 */
-	POUND("\u00A3", "GBP");
+public enum Limit {
 
 	/**
-	 * Currency symbol in UTF8.
+	 * No limit.
+	 */
+	NL("NL", "No limit"),
+	/**
+	 * Pot limit.
+	 */
+	PL("PL", "Pot limit"),
+	/**
+	 * Fixed limit.
+	 */
+	FL("PL", "Fixed limit");
+	/**
+	 * Short value.
 	 */
 	@NonNull
-	private String symbol;
+	private String shortValue;
 
 	/**
-	 * Currency short name.
+	 * Value.
 	 */
 	@NonNull
-	private String shortName;
+	private String value;
 
 }
