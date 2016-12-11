@@ -1,10 +1,6 @@
 package fr.mikrethor.cardroom.enums;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * Handled currency.
@@ -15,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@ToString
 public enum Currency {
 	/**
 	 * Euro.

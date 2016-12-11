@@ -4,7 +4,14 @@
 	<artifactId>cardroom-commons</artifactId>
 	<name>Cardroom reader commons</name>
 	<description>Cardroom reader commons</description>
-	<parent>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+    </dependencies>
+    <parent>
 		<groupId>fr.mikrethor</groupId>
 		<artifactId>cardroom-reader</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
