@@ -1,6 +1,5 @@
-package fr.mikrethor.cardroom.pojo;
+package fr.mikrethor.cardroom.enums;
 
-import fr.mikrethor.cardroom.enums.Domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,17 +8,21 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * Cardroom data.
- *
+ * Cardroom domain.
+ * 
  * @author Thor
+ *
  */
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
-public class Cardroom {
+public enum Domain {
+	COM("com"), CA("ca"), FR("fr"), IT("it"), UK("uk");
+
+	/**
+	 * Currency short name.
+	 */
 	@NonNull
-	private String name;
-	@NonNull
-	private Domain domain;
+	private String shortName;
 }
