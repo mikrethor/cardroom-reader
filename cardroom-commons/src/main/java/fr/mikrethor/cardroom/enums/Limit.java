@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /**
  * Enum ( 'No limit' 'Pot limit' 'Fixed limit').
@@ -13,8 +14,9 @@ import lombok.RequiredArgsConstructor;
  *
  */
 @Getter
-@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@ToString
 public enum Limit {
 
 	/**

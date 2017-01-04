@@ -14,7 +14,7 @@ import lombok.ToString;
  *
  */
 @Getter
-@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 public enum Domain {
