@@ -20,14 +20,14 @@ import fr.mikrethor.cardroom.pojo.Hand;
  * @author Thor
  * 
  */
-public abstract class SiteParsing implements IFileSiteParser {
+public abstract class CardroomFileParser implements ICardroomParser {
 
-	protected Cardroom siteDTO;
+	protected Cardroom cardRoom;
 
 	/**
 	 * LOGGER.
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(SiteParsing.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CardroomFileParser.class);
 	/**
 	 * Fichier à parser.
 	 */
@@ -57,23 +57,23 @@ public abstract class SiteParsing implements IFileSiteParser {
 		this.fileToParse = fileToParse;
 	}
 
-	public static final String ESPACE = " ";
-	public static final String DEUXPOINTS = ":";
-	public static final String PARENTHESEGAUCHE = "(";
-	public static final String PARENTHESEDROITE = ")";
-	public static final String CROCHETOUVRANT = "[";
-	public static final String CROCHETFERMANT = "]";
+	public static final String SPACE = " ";
+	public static final String COLON = ":";
+	public static final String LEFT_PARENTHESIS = "(";
+	public static final String RIGHT_PARENTHESIS = ")";
+	public static final String OPENNING_SQUARE_BRACKET = "[";
+	public static final String CLOSING_SQUARE_BRACKET = "]";
 	public static final String SLASH = "/";
 	protected Currency money = Currency.USD;
 	public static final String HASHTAG = "#";
 	public static final String PLUS = "+";
-	public static final String VIRGULE = ",";
+	public static final String COMMA = ",";
 	public static final String UNDERSCORE = "_";
 	public static final String DASH = "-";
-	public static final String POINT = ".";
+	public static final String DOT = ".";
 	public static final String PIPE = "|";
 	public static final String APOSTROPHE = "'";
-	public static final String VIDE = "";
+	public static final String EMPTY = "";
 	public static final String EOL = System.getProperty("line.separator");
 
 	@Override
@@ -143,7 +143,7 @@ public abstract class SiteParsing implements IFileSiteParser {
 		if (cards == null) {
 			return null;
 		}
-		return cards.split(ESPACE);
+		return cards.split(SPACE);
 
 	}
 
@@ -173,7 +173,7 @@ public abstract class SiteParsing implements IFileSiteParser {
 			String joueur = "";
 
 			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("Taille tableau : {}, tableau {}", blindDealt.length, blindDealt);
+				LOGGER.debug("Array size : {}, array {}", blindDealt.length, blindDealt);
 			}
 			if (blindDealt.length == 5) {
 				joueur = blindDealt[0];
@@ -182,7 +182,7 @@ public abstract class SiteParsing implements IFileSiteParser {
 				for (int i = 1; i < blindDealt.length - 1; i++) {
 					newTab[i - 1] = blindDealt[i];
 				}
-				joueur = blindDealt[0] + ESPACE + getPlayerBlind(newTab);
+				joueur = blindDealt[0] + SPACE + getPlayerBlind(newTab);
 			}
 			return joueur;
 		}
@@ -193,8 +193,8 @@ public abstract class SiteParsing implements IFileSiteParser {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("readCards : {}", chaine);
 		}
-		final int crochetouvrant = chaine.lastIndexOf(CROCHETOUVRANT);
-		final int crochetfermant = chaine.lastIndexOf(CROCHETFERMANT);
+		final int crochetouvrant = chaine.lastIndexOf(OPENNING_SQUARE_BRACKET);
+		final int crochetfermant = chaine.lastIndexOf(CLOSING_SQUARE_BRACKET);
 		final String cards = chaine.substring(crochetouvrant + 1, crochetfermant);
 		final Card[] tab = this.toECards(this.getCards(cards));
 		return tab;
@@ -212,7 +212,7 @@ public abstract class SiteParsing implements IFileSiteParser {
 	protected boolean startsWith(String chaine, String[] nextPhases) {
 		for (final String phase : nextPhases) {
 			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("Verifie que de la chaine \"{}\" commence par la phase \"{}\"", chaine, phase);
+				LOGGER.debug("Check string \"{}\" start with \"{}\"", chaine, phase);
 
 			}
 			if (chaine.startsWith(phase)) {
@@ -222,7 +222,7 @@ public abstract class SiteParsing implements IFileSiteParser {
 		return false;
 	}
 
-	protected SiteParsing(File fileToParse) {
+	protected CardroomFileParser(File fileToParse) {
 		if (LOGGER.isDebugEnabled() && fileToParse != null) {
 			LOGGER.debug("{} : {}", this.getClass().getName(), fileToParse.getName());
 		}
@@ -236,12 +236,12 @@ public abstract class SiteParsing implements IFileSiteParser {
 
 	@Override
 	public Cardroom getCardroom() {
-		return siteDTO;
+		return cardRoom;
 	}
 
 	@Override
 	public void setCardroom(Cardroom siteDTO) {
-		this.siteDTO = siteDTO;
+		this.cardRoom = siteDTO;
 	}
 
 }

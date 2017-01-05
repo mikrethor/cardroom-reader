@@ -13,12 +13,12 @@ import fr.mikrethor.cardroom.pojo.Hand;
 import fr.mikrethor.cardroom.pojo.Player;
 
 /**
- * Interface pour les classes de parsing de fichiers par site.
+ * Parsing API
  * 
  * @author Thor
  * 
  */
-public interface IFileSiteParser {
+public interface ICardroomParser {
 	/**
 	 * Methode de parsing du fichier en entree.
 	 * 
@@ -51,7 +51,7 @@ public interface IFileSiteParser {
 	String parseNewHandLine(String nextLine, Scanner input, String phase, String[] nextPhases, Hand hand);
 
 	/**
-	 * Lit la sedonde ligne d'une main.
+	 * Lit la seconde ligne d'une main.
 	 * 
 	 * @param nextLine
 	 *            String : chaine retournee par le nextLine du Scanner.
@@ -425,18 +425,6 @@ public interface IFileSiteParser {
 	Currency parseCurrency(String chaine);
 
 	/**
-	 * Determine si la chaine de caractere en entre correspond a la partie en
-	 * cours de parsing.
-	 * 
-	 * @deprecated ne devrait pas etre dans le parse.
-	 * @param screenName
-	 *            String libelle de l'ecran.
-	 * @return True si le nom de la partie a l'ecran correspond au fichier
-	 *         parsé.
-	 */
-	Boolean isFileToParseCorrespondToScreenName(String screenName);
-
-	/**
 	 * Indique si la ligne en parametre a des informations qui vont etre
 	 * parsees.
 	 * 
@@ -457,5 +445,5 @@ public interface IFileSiteParser {
 
 	Hand textToHandDto(StringBuffer text);
 
-	void setCardroom(Cardroom siteDTO);
+	void setCardroom(Cardroom cardRoom);
 }
