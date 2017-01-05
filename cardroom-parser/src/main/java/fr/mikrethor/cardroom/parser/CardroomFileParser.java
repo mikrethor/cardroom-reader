@@ -189,7 +189,7 @@ public abstract class CardroomFileParser implements ICardroomParser {
 	}
 
 	@Override
-	public Card[] readCards(String chaine) {
+	public Card[] parseCards(String chaine) {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("readCards : {}", chaine);
 		}

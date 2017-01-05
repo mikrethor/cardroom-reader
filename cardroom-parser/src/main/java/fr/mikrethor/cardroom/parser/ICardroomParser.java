@@ -131,10 +131,10 @@ public interface ICardroomParser {
 	 *            List<ActionDTO> : liste d'ActionDTO.
 	 * @return String : le nextLine en cours.
 	 */
-	String readActionsByPhase(String nextLine, Scanner input, Hand hand, String phase, String[] nextPhases,
+	String parseActionsByPhase(String nextLine, Scanner input, Hand hand, String phase, String[] nextPhases,
 			List<Action> actions);
 
-	String readPreflop(String nextLine, Scanner input, Hand hand);
+	String parsePreflop(String nextLine, Scanner input, Hand hand);
 
 	/**
 	 * Lit le flop.
@@ -148,7 +148,7 @@ public interface ICardroomParser {
 	 *            HandDTO : main en cours.
 	 * @return String : le nextLine en cours.
 	 */
-	String readFlop(String nextLine, Scanner input, Hand hand);
+	String parseFlop(String nextLine, Scanner input, Hand hand);
 
 	/**
 	 * Lit le Turn.
@@ -162,7 +162,7 @@ public interface ICardroomParser {
 	 *            HandDTO : main en cours.
 	 * @return String : le nextLine en cours.
 	 */
-	String readTurn(String nextLine, Scanner input, Hand hand);
+	String parseTurn(String nextLine, Scanner input, Hand hand);
 
 	/**
 	 * Lit la River.
@@ -176,7 +176,7 @@ public interface ICardroomParser {
 	 *            HandDTO : main en cours.
 	 * @return String : le nextLine en cours.
 	 */
-	String readRiver(String nextLine, Scanner input, Hand hand);
+	String parseRiver(String nextLine, Scanner input, Hand hand);
 
 	/**
 	 * Lit le Showdown.
@@ -189,7 +189,7 @@ public interface ICardroomParser {
 	 *            HandDTO : main en cours.
 	 * @return String : le nextLine en cours.
 	 */
-	String readShowdown(String nextLine, Scanner input, Hand hand);
+	String parseShowdown(String nextLine, Scanner input, Hand hand);
 
 	/**
 	 * Lit le résumé de la main.
@@ -239,7 +239,7 @@ public interface ICardroomParser {
 	 * @param chaine
 	 * @return
 	 */
-	Card[] readCards(String chaine);
+	Card[] parseCards(String chaine);
 
 	/**
 	 * Transforme une chaine de caracteres en ActionDTO.
@@ -248,7 +248,7 @@ public interface ICardroomParser {
 	 * @param players
 	 * @return
 	 */
-	Action read(String chaine, Map<String, Player> players);
+	Action parseAction(String chaine, Map<String, Player> players);
 
 	/**
 	 * 
