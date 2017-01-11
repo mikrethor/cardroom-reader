@@ -96,7 +96,7 @@ public abstract class CardroomFileParser implements ICardroomParser {
 				mapNameIdPlayers = new HashMap<String, Long>();
 			}
 
-			return parsing();
+			return parsing().getHands();
 		}
 	}
 

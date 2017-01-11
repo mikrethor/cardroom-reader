@@ -7,13 +7,15 @@ import java.util.Scanner;
 
 import fr.mikrethor.cardroom.enums.Card;
 import fr.mikrethor.cardroom.enums.Currency;
+import fr.mikrethor.cardroom.enums.GameType;
 import fr.mikrethor.cardroom.pojo.Action;
 import fr.mikrethor.cardroom.pojo.Cardroom;
 import fr.mikrethor.cardroom.pojo.Hand;
+import fr.mikrethor.cardroom.pojo.InfoSession;
 import fr.mikrethor.cardroom.pojo.Player;
 
 /**
- * Parsing API
+ * Parsing API.
  * 
  * @author Thor
  * 
@@ -48,7 +50,8 @@ public interface ICardroomParser {
 	 *            HandDTO : main en cours.
 	 * @return String : le nextLine en cours.
 	 */
-	String parseNewHandLine(String nextLine, Scanner input, String phase, String[] nextPhases, Hand hand);
+	String parseNewHandLine(String nextLine, Scanner input, String phase, String[] nextPhases, InfoSession infoSession,
+			Hand hand);
 
 	/**
 	 * Lit la seconde ligne d'une main.
@@ -65,7 +68,8 @@ public interface ICardroomParser {
 	 *            HandDTO : main en cours.
 	 * @return String : le nextLine en cours.
 	 */
-	String parseTableLine(String nextLine, Scanner input, String phase, String[] nextPhases, Hand hand);
+	String parseTableLine(String nextLine, Scanner input, String phase, String[] nextPhases, InfoSession infoSession,
+			Hand hand);
 
 	/**
 	 * Lit les positions des joueurs.
@@ -83,7 +87,8 @@ public interface ICardroomParser {
 	 *            HandDTO : main en cours.
 	 * @return String : le nextLine en cours.
 	 */
-	String parseSeatLine(String nextLine, Scanner input, String phase, String[] nextPhases, Hand hand);
+	String parseSeatLine(String nextLine, Scanner input, String phase, String[] nextPhases, InfoSession game,
+			Hand hand);
 
 	/**
 	 * TODO.
@@ -95,7 +100,8 @@ public interface ICardroomParser {
 	 * @param hand
 	 * @return
 	 */
-	String parseAntesAndBlinds(String nextLine, Scanner input, String phase, String[] nextPhases, Hand hand);
+	String parseAntesAndBlinds(String nextLine, Scanner input, String phase, String[] nextPhases, InfoSession game,
+			Hand hand);
 
 	/**
 	 * Lit les informations sur le dealer.
@@ -206,7 +212,8 @@ public interface ICardroomParser {
 	 *            HandDTO : main en cours.
 	 * @return String : le nextLine en cours.
 	 */
-	String readSummary(String nextLine, Scanner input, String phase, String[] nextPhases, Hand hand);
+	String parseSummary(String nextLine, Scanner input, InfoSession session, String phase, String[] nextPhases,
+			Hand hand);
 
 	/**
 	 * Retourne un tableau de chaines de caracteres correspondant aux cartes.
@@ -284,7 +291,7 @@ public interface ICardroomParser {
 	 * 
 	 * @return un objet Map avec l'identifiant de la main et un HandDTO.
 	 */
-	public Map<String, Hand> parsing();
+	public InfoSession parsing();
 
 	/**
 	 * Parse le Buy-In.
@@ -404,7 +411,7 @@ public interface ICardroomParser {
 	 * @param fileName
 	 * @return
 	 */
-	// EGameType getGameTypeFromFilename(String fileName);
+	GameType getGameTypeFromFilename(String fileName);
 
 	/**
 	 * Retourne la date de la main.
