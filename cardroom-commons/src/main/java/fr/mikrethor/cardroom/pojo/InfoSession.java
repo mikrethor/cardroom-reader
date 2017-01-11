@@ -28,7 +28,7 @@ import lombok.ToString;
 @ToString
 public class InfoSession {
 	@NonNull
-	private Cardroom site;
+	private Cardroom cardRoom;
 	private String label;
 
 	private Double buyIn;
