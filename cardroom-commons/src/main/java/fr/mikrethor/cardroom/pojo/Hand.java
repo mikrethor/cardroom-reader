@@ -1,5 +1,6 @@
 package fr.mikrethor.cardroom.pojo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,8 +29,8 @@ public class Hand {
 	@NonNull
 	private Player player;
 
-	private Map<Integer, Player> players;
-	private Map<String, Player> playersByName;
+	private Map<Integer, Player> players = new HashMap<>();
+	private Map<String, Player> playersByName = new HashMap<>();
 	private Player bigBlindPlayer;
 	private Player smallBlindPlayer;
 	private Player dealerPlayer;
@@ -60,12 +61,12 @@ public class Hand {
 	private Card turn;
 	private Card river;
 
-	private List<Action> preflopActions;
-	private List<Action> flopActions;
-	private List<Action> turnActions;
-	private List<Action> riverActions;
-	private List<Action> showdownActions;
-	private List<Action> actions;
+	private List<Action> preflopActions = new ArrayList<>();
+	private List<Action> flopActions = new ArrayList<>();
+	private List<Action> riverActions = new ArrayList<>();
+	private List<Action> turnActions = new ArrayList<>();
+	private List<Action> showdownActions = new ArrayList<>();
+	private List<Action> actions = new ArrayList<>();
 	private int level;
 	private Integer buttonSeat;
 	private long date;
