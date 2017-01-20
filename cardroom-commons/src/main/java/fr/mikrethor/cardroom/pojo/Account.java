@@ -21,25 +21,25 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Account {
 	/**
-	 * Joueur correspondant.
+	 * Player linked to the account.
 	 */
 	@NonNull
 	private Player player;
 	/**
-	 * Site d'appartenance du comnpte.
+	 * Account cardroom.
 	 */
 	@NonNull
 	private Cardroom cardroom;
 
 	/**
-	 * Chemin du répertoire contenant les mains.
+	 * Filepath where to fing hand files to parse.
 	 */
 	@NonNull
 	private String handPath;
 	/**
 	 * Liste des fichiers à analyser.
 	 */
-	//TODO
+	// TODO
 	// private Set<FileDTO> files = new HashSet<FileDTO>(0);
 
 	/**
