@@ -450,7 +450,7 @@ public interface ICardroomParser {
 
 	Map<String, StringBuffer> fileToMap();
 
-	Hand textToHandDto(StringBuffer text);
+	Hand textToHandDto(StringBuffer text, InfoSession infoSession);
 
 	void setCardroom(Cardroom cardRoom);
 }
