@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * Type enumere pour symboliser un action de jeu.
+ * Enum corresponding to an action in a hand.
  * 
  * @author Thor
  * 
@@ -48,7 +48,7 @@ public enum EAction {
 	SHOWS("shows", 7);
 
 	/**
-	 * Libelle.
+	 * Value.
 	 */
 	@NonNull
 	private String value;

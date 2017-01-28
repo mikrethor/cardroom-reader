@@ -12,7 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Classe symbolisant une action d'un coup.
+ * Class corresponding to an action in a hand.
  * 
  * @author Thor
  * 
