@@ -1,6 +1,7 @@
 package fr.mikrethor.cardroom.parser;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -31,7 +32,7 @@ public abstract class CardroomFileParser implements ICardroomParser {
 	/**
 	 * Fichier à parser.
 	 */
-	private File fileToParse;
+	private Path fileToParse;
 
 	/**
 	 * 
@@ -43,7 +44,7 @@ public abstract class CardroomFileParser implements ICardroomParser {
 	 * 
 	 * @return File : fichier � parser.
 	 */
-	public File getFileToParse() {
+	public Path getFileToParse() {
 		return fileToParse;
 	}
 
@@ -53,7 +54,7 @@ public abstract class CardroomFileParser implements ICardroomParser {
 	 * @param fileToParseFile
 	 *            : fichier � parser.
 	 */
-	public void setFileToParse(File fileToParse) {
+	public void setFileToParse(Path fileToParse) {
 		this.fileToParse = fileToParse;
 	}
 
@@ -107,13 +108,13 @@ public abstract class CardroomFileParser implements ICardroomParser {
 
 	@Override
 	public boolean parseable() {
-		if (this.getFileToParse().exists()) {
+		if (Files.exists(this.getFileToParse())) {
 			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("Le fichier {} existe.", this.getFileToParse().getName());
+				LOGGER.debug("Le fichier {} existe.", this.getFileToParse().getFileName());
 			}
-			if (this.getFileToParse().isFile()) {
+			if (Files.isRegularFile(this.getFileToParse())) {
 				if (LOGGER.isDebugEnabled()) {
-					LOGGER.debug("Le fichier {} est un fichier", this.getFileToParse().getName());
+					LOGGER.debug("Le fichier {} est un fichier", this.getFileToParse().getFileName());
 				}
 				return true;
 			}
@@ -222,9 +223,9 @@ public abstract class CardroomFileParser implements ICardroomParser {
 		return false;
 	}
 
-	protected CardroomFileParser(File fileToParse) {
+	protected CardroomFileParser(Path fileToParse) {
 		if (LOGGER.isDebugEnabled() && fileToParse != null) {
-			LOGGER.debug("{} : {}", this.getClass().getName(), fileToParse.getName());
+			LOGGER.debug("{} : {}", this.getClass().getName(), fileToParse.getFileName());
 		}
 		this.setFileToParse(fileToParse);
 	}
