@@ -9,26 +9,37 @@
 	<description>Utilities to parse poker files from cardooms</description>
 
 	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- Version des librairies -->
 		<logback.version>1.1.3</logback.version>
 		<slf4j.version>1.7.5</slf4j.version>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.boot.version>1.4.4.RELEASE</spring.boot.version>
+		<spring.loaded.version>1.2.6.RELEASE</spring.loaded.version>
+		<lombok.version>1.16.12</lombok.version>
+		<jsonpath.version>2.2.0</jsonpath.version>
+		<junit.version>4.12</junit.version>
+		<hsqldb.version>2.3.4</hsqldb.version>
+		<!-- Report properties -->
+		<maven.site.version>3.4</maven.site.version>
+		<asciidoctor.version>1.5.3</asciidoctor.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.12</version>
+			<version>${lombok.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
