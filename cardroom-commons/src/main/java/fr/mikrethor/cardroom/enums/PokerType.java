@@ -1,7 +1,7 @@
 package fr.mikrethor.cardroom.enums;
 
 /**
- * Enum pour les types de poker (NoLimitHoldem, Omaha,...)
+ * Enum which symbolizes (NoLimitHoldem, Omaha,...)
  * 
  * @author Thor
  *
@@ -29,7 +29,7 @@ public enum PokerType {
 	STUD("Stud");
 
 	/**
-	 * Valeur.
+	 * Value.
 	 */
 	private String value;
 
@@ -37,7 +37,7 @@ public enum PokerType {
 	 * Constructeur parametre.
 	 * 
 	 * @param value
-	 *            valeur.
+	 *            String.
 	 */
 	private PokerType(String value) {
 		this.value = value;
@@ -46,7 +46,7 @@ public enum PokerType {
 	/**
 	 * Getter.
 	 * 
-	 * @return valeur de l'enum.
+	 * @return enum value.
 	 */
 	public String getValue() {
 		return value;
