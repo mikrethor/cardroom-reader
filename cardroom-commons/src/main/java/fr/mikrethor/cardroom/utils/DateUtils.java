@@ -7,15 +7,15 @@ import java.util.Date;
 
 public class DateUtils {
 	/**
-	 * Parse une chaine et retourne une date equivalente.
+	 * Parse a String and return the equivalent Date.
 	 * 
 	 * @param stringToDate
-	 *            String chaine a parser.
+	 *            String to parse.
 	 * @param pattern
-	 *            String pattern pour parser la date.
+	 *            String pattern.
 	 * @return Date date
 	 * @throws ParseException
-	 *             si le parsing echoue.
+	 *             when parsing failed.
 	 */
 	public static Date toDate(String stringToDate, String pattern) throws ParseException {
 		final DateFormat sdf = new SimpleDateFormat(pattern);
