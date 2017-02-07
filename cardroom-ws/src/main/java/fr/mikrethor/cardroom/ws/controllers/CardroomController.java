@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,16 +16,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-import fr.mikrethor.cardroom.ws.errors.DefaultErrorMessage;
+import fr.mikrethor.cardroom.enums.Domain;
+import fr.mikrethor.cardroom.pojo.Account;
+import fr.mikrethor.cardroom.pojo.Cardroom;
+import fr.mikrethor.cardroom.pojo.Hand;
+import fr.mikrethor.cardroom.pojo.Player;
 import fr.mikrethor.cardroom.ws.errors.CardRoomException;
-import fr.mikrethor.cardroom.ws.jpa.Hand;
-import fr.mikrethor.cardroom.ws.jpa.HandRepository;
+import fr.mikrethor.cardroom.ws.errors.DefaultErrorMessage;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class CardroomController {
-	@Autowired
-	HandRepository handRepo;
 
 	/**
 	 * Test ws up.
@@ -43,9 +43,33 @@ public class CardroomController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/hand")
-	public Hand hand() {
-		return handRepo.findOne(1L);
+	@RequestMapping("/hands/{id}")
+	public Hand getHand(String id) {
+		Hand hand = null;
+		if ("1".equals(id)) {
+			Cardroom cardroom = new Cardroom("Winamax", Domain.FR);
+			hand = new Hand(cardroom, "1", new Player(cardroom, "nameplayer"));
+		}
+		return hand;
+	}
+
+	@RequestMapping("/accounts")
+	public List<Account> getAccount() {
+		Cardroom winamax = new Cardroom("Winamax", Domain.FR);
+
+		Cardroom pokerstars = new Cardroom("Pokerstars", Domain.COM);
+
+		Player aW = new Player(winamax, "testnamePlayeWinar");
+		Account acW = new Account(aW, winamax, "test path");
+
+		Player aP = new Player(pokerstars, "testnamePlayerPS");
+		Account acP = new Account(aP, pokerstars, "test path");
+
+		List<Account> accounts = new ArrayList<>();
+
+		accounts.add(acW);
+		accounts.add(acP);
+		return accounts;
 	}
 
 	/**
@@ -55,7 +79,7 @@ public class CardroomController {
 	 * @throws CardRoomException
 	 */
 	@RequestMapping("/testError")
-	public Hand testError() throws CardRoomException {
+	public void testError() throws CardRoomException {
 		throw new CardRoomException("test eerreur");
 	}
 
