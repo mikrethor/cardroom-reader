@@ -3,13 +3,20 @@ package fr.mikrethor.cardroom.ws.controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,6 +34,11 @@ import fr.mikrethor.cardroom.ws.errors.DefaultErrorMessage;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class CardroomController {
+
+	/**
+	 * LOGGER.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(CardroomController.class);
 
 	/**
 	 * Test ws up.
@@ -53,16 +65,21 @@ public class CardroomController {
 		return hand;
 	}
 
-	@RequestMapping("/accounts")
-	public List<Account> getAccount() {
-		Cardroom winamax = new Cardroom("Winamax", Domain.FR);
+	// Account methods
 
+	@RequestMapping("/accounts")
+	public List<Account> getAccounts() {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("list all account");
+		}
+
+		Cardroom winamax = new Cardroom("Winamax", Domain.FR);
 		Cardroom pokerstars = new Cardroom("Pokerstars", Domain.COM);
 
 		Player aW = new Player(winamax, "testnamePlayeWinar");
-		Account acW = new Account(aW, winamax, "test path");
-
 		Player aP = new Player(pokerstars, "testnamePlayerPS");
+
+		Account acW = new Account(aW, winamax, "test path");
 		Account acP = new Account(aP, pokerstars, "test path");
 
 		List<Account> accounts = new ArrayList<>();
@@ -70,6 +87,24 @@ public class CardroomController {
 		accounts.add(acW);
 		accounts.add(acP);
 		return accounts;
+	}
+
+	@DeleteMapping("/accounts")
+	public boolean deleteAccount(@RequestParam(value = "id") Long id) {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("delete account with id : {}", id);
+		}
+		return true;
+	}
+
+	@PostMapping("/accounts")
+	public Account saveAccount(@RequestBody Account account) {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("save account {}", account);
+		}
+		Random r = new Random();
+		account.setId(r.nextLong());
+		return account;
 	}
 
 	/**

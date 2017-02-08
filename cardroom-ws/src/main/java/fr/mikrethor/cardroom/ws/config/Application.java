@@ -29,10 +29,11 @@ import fr.mikrethor.cardroom.ws.jpa.HandRepository;
 		"fr.mikrethor.cardroom.ws.jpa", "fr.mikrethor.cardroom.ws.config" })
 public class Application {
 
-	private static final Logger log = LoggerFactory.getLogger(Application.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
 	// tag::entrypoint[]
 	public static void main(String[] args) {
+		LOGGER.info("Starting application");
 		SpringApplication.run(Application.class, args);
 	}
 	// end::entrypoint[]
@@ -57,7 +58,8 @@ public class Application {
 	}
 
 	@Bean
-	public LocalContainerEntityManagerFactoryBean cardroomEmf(DataSource datasource, JpaVendorAdapter jpaVendorAdapter) {
+	public LocalContainerEntityManagerFactoryBean cardroomEmf(DataSource datasource,
+			JpaVendorAdapter jpaVendorAdapter) {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setPersistenceUnitName("puCardroom");
 		em.setDataSource(datasource);

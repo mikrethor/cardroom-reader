@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Player account.
@@ -13,8 +15,10 @@ import lombok.RequiredArgsConstructor;
  *
  */
 @Getter
+@Setter
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
+@ToString
 public class Account {
 	/**
 	 * Player linked to the account.
@@ -32,5 +36,10 @@ public class Account {
 	 */
 	@NonNull
 	private String handPath;
+
+	/**
+	 * Primary key.
+	 */
+	private Long id;
 
 }
