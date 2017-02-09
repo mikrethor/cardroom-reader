@@ -1,5 +1,7 @@
 package fr.mikrethor.cardroom.ws.config;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -18,8 +20,15 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
+import fr.mikrethor.cardroom.enums.Domain;
+import fr.mikrethor.cardroom.ws.jpa.Account;
+import fr.mikrethor.cardroom.ws.jpa.AccountRepository;
+import fr.mikrethor.cardroom.ws.jpa.Cardroom;
+import fr.mikrethor.cardroom.ws.jpa.CardroomRepository;
 import fr.mikrethor.cardroom.ws.jpa.Hand;
 import fr.mikrethor.cardroom.ws.jpa.HandRepository;
+import fr.mikrethor.cardroom.ws.jpa.Player;
+import fr.mikrethor.cardroom.ws.jpa.PlayerRepository;
 
 //Put spring config above all classes in order to allow scan
 @SpringBootApplication(scanBasePackages = { "fr.mikrethor.cardroom.ws.controllers", "fr.mikrethor.cardroom.ws.errors",
@@ -88,10 +97,33 @@ public class Application {
 	}
 
 	@Bean
-	public CommandLineRunner demo(HandRepository handRepository) {
+	public CommandLineRunner demo(HandRepository handRepository, AccountRepository accountRepository,
+			PlayerRepository playerRepository, CardroomRepository cardroomRepository) {
 		return (args) -> {
 			Hand hand = new Hand("testHand");
 			hand = handRepository.save(hand);
+
+			cardroomRepository.save(new Cardroom("Winamax", Domain.FR));
+			cardroomRepository.save(new Cardroom("Pokerstars", Domain.COM));
+
+			Cardroom winamax = cardroomRepository.findOne(1L);
+			Cardroom pokerstars = cardroomRepository.findOne(2L);
+
+			playerRepository.save(new Player(winamax, "testnamePlayeWinar"));
+			playerRepository.save(new Player(pokerstars, "testnamePlayerPS"));
+
+			Player aW = playerRepository.findOne(1L);
+			Player aP = playerRepository.findOne(2L);
+
+			Account acW = new Account(aW, winamax, "test path");
+			Account acP = new Account(aP, pokerstars, "test path");
+
+			List<Account> accounts = new ArrayList<>();
+
+			accounts.add(acW);
+			accounts.add(acP);
+
+			accountRepository.save(accounts);
 		};
 	}
 
