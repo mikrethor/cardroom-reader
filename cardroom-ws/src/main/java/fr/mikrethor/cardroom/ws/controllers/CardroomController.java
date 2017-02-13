@@ -29,12 +29,13 @@ import fr.mikrethor.cardroom.pojo.Account;
 import fr.mikrethor.cardroom.pojo.Cardroom;
 import fr.mikrethor.cardroom.pojo.Hand;
 import fr.mikrethor.cardroom.pojo.Player;
+import fr.mikrethor.cardroom.ws.RestOperations;
 import fr.mikrethor.cardroom.ws.errors.CardRoomException;
 import fr.mikrethor.cardroom.ws.errors.DefaultErrorMessage;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-public class CardroomController {
+public class CardroomController implements RestOperations {
 
 	/**
 	 * LOGGER.
@@ -56,6 +57,7 @@ public class CardroomController {
 	 * 
 	 * @return
 	 */
+	@Override
 	@RequestMapping("/hands/{id}")
 	public Hand getHand(@PathVariable String id) {
 		Hand hand = null;
@@ -66,8 +68,7 @@ public class CardroomController {
 		return hand;
 	}
 
-	// Account methods
-
+	@Override
 	@RequestMapping("/accounts")
 	public List<Account> getAccounts() {
 		if (LOGGER.isDebugEnabled()) {
@@ -93,6 +94,7 @@ public class CardroomController {
 		return accounts;
 	}
 
+	@Override
 	@DeleteMapping("/accounts")
 	public boolean deleteAccount(@RequestParam(value = "id") Long id) {
 		if (LOGGER.isDebugEnabled()) {
@@ -101,6 +103,7 @@ public class CardroomController {
 		return true;
 	}
 
+	@Override
 	@PostMapping("/accounts")
 	public Account saveAccount(@RequestBody Account account) {
 		if (LOGGER.isDebugEnabled()) {
@@ -136,10 +139,55 @@ public class CardroomController {
 		try {
 			json = ow.writeValueAsString(dems);
 		} catch (JsonProcessingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			LOGGER.error("An error occured", e1);
 		}
 		response.getWriter().write(json);
+	}
+
+	@Override
+	public Account updateAccount(Account account) {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("update account {}", account);
+		}
+		Random r = new Random();
+		account.setId(r.nextLong());
+		return account;
+	}
+
+	@Override
+	public Hand saveHand(Hand hand) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean deletHand(Long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Hand> saveHands(List<Hand> hands) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Player getPlayerByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Player getPlayer(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean deletPlayer(Long id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
