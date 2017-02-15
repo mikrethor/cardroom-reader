@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+	<!-- <configuration> <custom-converters> <converter type="fr.xbinstruments.dozer.converter.EnumStringConverter"> 
+		<class-a>fr.xbinstruments.commons.enumtype.EAction</class-a> <class-b>java.lang.String</class-b> 
+		</converter> <converter type="fr.xbinstruments.dozer.converter.EnumStringConverter"> 
+		<class-a> fr.xbinstruments.commons.enumtype.ERound </class-a> <class-b>java.lang.String</class-b> 
+		</converter> </custom-converters> </configuration> -->
+	<!-- Mapping des sites -->
+	<mapping>
+		<class-a>fr.mikrethor.cardroom.pojo.Cardroom</class-a>
+		<class-b>fr.mikrethor.cardroom.ws.jpa.Cardroom</class-b>
+
+		<field>
+			<a>name</a>
+			<b>name</b>
+		</field>
+		<field>
+			<a>domain</a>
+			<b>domain</b>
+		</field>
+	</mapping>
+
+</mappings>
