@@ -1,5 +1,6 @@
 package fr.mikrethor.cardroom.ws.config;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -7,6 +8,8 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.dozer.DozerBeanMapper;
+import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +18,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -127,4 +132,17 @@ public class Application {
 		};
 	}
 
+	@Bean
+	public DozerBeanMapperFactoryBean mapperFactory() throws IOException {
+		DozerBeanMapperFactoryBean mapper = new DozerBeanMapperFactoryBean();
+		Resource[] resources = new PathMatchingResourcePatternResolver().getResources("classpath*:mappingDozer.xml");
+		mapper.setMappingFiles(resources);
+		return mapper;
+	}
+
+	@Bean
+	public DozerBeanMapper mapper(DozerBeanMapperFactoryBean mapperFactory) throws Exception {
+		DozerBeanMapper mapper = (DozerBeanMapper) mapperFactory.getObject();
+		return mapper;
+	}
 }
