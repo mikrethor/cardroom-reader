@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.dozer.DozerBeanMapper;
+import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.slf4j.Logger;
@@ -142,7 +143,16 @@ public class Application {
 
 	@Bean
 	public DozerBeanMapper mapper(DozerBeanMapperFactoryBean mapperFactory) throws Exception {
-		DozerBeanMapper mapper = (DozerBeanMapper) mapperFactory.getObject();
+		DozerBeanMapper mapper = new DozerBeanMapper();
+		mapper.addMapping(cardroomMappingBuilder);
 		return mapper;
 	}
+
+	BeanMappingBuilder cardroomMappingBuilder = new BeanMappingBuilder() {
+		@Override
+		protected void configure() {
+			mapping(fr.mikrethor.cardroom.pojo.Cardroom.class, fr.mikrethor.cardroom.ws.jpa.Cardroom.class)
+					.fields("name", "name").fields("domain", "domain");
+		}
+	};
 }
