@@ -1,6 +1,5 @@
 package fr.mikrethor.cardroom.ws.config;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -9,8 +8,6 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.dozer.DozerBeanMapper;
-import org.dozer.loader.api.BeanMappingBuilder;
-import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +16,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -35,6 +30,7 @@ import fr.mikrethor.cardroom.ws.jpa.Hand;
 import fr.mikrethor.cardroom.ws.jpa.HandRepository;
 import fr.mikrethor.cardroom.ws.jpa.Player;
 import fr.mikrethor.cardroom.ws.jpa.PlayerRepository;
+import fr.mikrethor.cardroom.ws.mapping.CardroomMappingBuilder;
 
 //Put spring config above all classes in order to allow scan
 @SpringBootApplication(scanBasePackages = { "fr.mikrethor.cardroom.ws.controllers", "fr.mikrethor.cardroom.ws.errors",
@@ -134,25 +130,10 @@ public class Application {
 	}
 
 	@Bean
-	public DozerBeanMapperFactoryBean mapperFactory() throws IOException {
-		DozerBeanMapperFactoryBean mapper = new DozerBeanMapperFactoryBean();
-		Resource[] resources = new PathMatchingResourcePatternResolver().getResources("classpath*:mappingDozer.xml");
-		mapper.setMappingFiles(resources);
-		return mapper;
-	}
-
-	@Bean
-	public DozerBeanMapper mapper(DozerBeanMapperFactoryBean mapperFactory) throws Exception {
+	public DozerBeanMapper mapper() throws Exception {
 		DozerBeanMapper mapper = new DozerBeanMapper();
-		mapper.addMapping(cardroomMappingBuilder);
+		mapper.addMapping(new CardroomMappingBuilder());
 		return mapper;
 	}
 
-	BeanMappingBuilder cardroomMappingBuilder = new BeanMappingBuilder() {
-		@Override
-		protected void configure() {
-			mapping(fr.mikrethor.cardroom.pojo.Cardroom.class, fr.mikrethor.cardroom.ws.jpa.Cardroom.class)
-					.fields("name", "name").fields("domain", "domain");
-		}
-	};
 }
