@@ -18,6 +18,7 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @ToString
 public class Player {
+	private Long id;
 	@NonNull
 	private Cardroom cardroom;
 	@NonNull

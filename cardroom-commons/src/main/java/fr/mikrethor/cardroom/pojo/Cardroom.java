@@ -20,6 +20,9 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @ToString
 public class Cardroom {
+
+	private Long id;
+
 	@NonNull
 	private String name;
 	@NonNull

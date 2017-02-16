@@ -30,7 +30,9 @@ import fr.mikrethor.cardroom.ws.jpa.Hand;
 import fr.mikrethor.cardroom.ws.jpa.HandRepository;
 import fr.mikrethor.cardroom.ws.jpa.Player;
 import fr.mikrethor.cardroom.ws.jpa.PlayerRepository;
+import fr.mikrethor.cardroom.ws.mapping.AccountMappingBuilder;
 import fr.mikrethor.cardroom.ws.mapping.CardroomMappingBuilder;
+import fr.mikrethor.cardroom.ws.mapping.PlayerMappingBuilder;
 
 //Put spring config above all classes in order to allow scan
 @SpringBootApplication(scanBasePackages = { "fr.mikrethor.cardroom.ws.controllers", "fr.mikrethor.cardroom.ws.errors",
@@ -133,6 +135,9 @@ public class Application {
 	public DozerBeanMapper mapper() throws Exception {
 		DozerBeanMapper mapper = new DozerBeanMapper();
 		mapper.addMapping(new CardroomMappingBuilder());
+		mapper.addMapping(new AccountMappingBuilder());
+		mapper.addMapping(new PlayerMappingBuilder());
+
 		return mapper;
 	}
 

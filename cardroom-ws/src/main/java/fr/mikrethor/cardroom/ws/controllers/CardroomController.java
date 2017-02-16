@@ -8,8 +8,10 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,10 +34,21 @@ import fr.mikrethor.cardroom.pojo.Player;
 import fr.mikrethor.cardroom.ws.RestOperations;
 import fr.mikrethor.cardroom.ws.errors.CardRoomException;
 import fr.mikrethor.cardroom.ws.errors.DefaultErrorMessage;
+import fr.mikrethor.cardroom.ws.jpa.AccountRepository;
+import fr.mikrethor.cardroom.ws.jpa.CardroomRepository;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class CardroomController implements RestOperations {
+
+	@Autowired
+	CardroomRepository cardroomRepository;
+
+	@Autowired
+	AccountRepository accountRepository;
+
+	@Autowired
+	DozerBeanMapper mapper;
 
 	/**
 	 * LOGGER.
@@ -96,11 +109,11 @@ public class CardroomController implements RestOperations {
 
 	@Override
 	@DeleteMapping("/accounts")
-	public boolean deleteAccount(@RequestParam(value = "id") Long id) {
+	public void deleteAccount(@RequestParam(value = "id") Long id) {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("delete account with id : {}", id);
 		}
-		return true;
+		return;
 	}
 
 	@Override
@@ -161,9 +174,9 @@ public class CardroomController implements RestOperations {
 	}
 
 	@Override
-	public boolean deletHand(Long id) {
+	public void deletHand(Long id) {
 		// TODO Auto-generated method stub
-		return false;
+		return;
 	}
 
 	@Override
@@ -185,9 +198,39 @@ public class CardroomController implements RestOperations {
 	}
 
 	@Override
-	public boolean deletPlayer(Long id) {
+	public void deletePlayer(Long id) {
 		// TODO Auto-generated method stub
-		return false;
+		return;
+	}
+
+	@Override
+	@RequestMapping("/cardrooms")
+	public List<Cardroom> getCardrooms() {
+		List<Cardroom> cardrooms = new ArrayList<>();
+
+		for (fr.mikrethor.cardroom.ws.jpa.Cardroom cardroom : cardroomRepository.findAll()) {
+			cardrooms.add(mapper.map(cardroom, Cardroom.class));
+		}
+
+		return cardrooms;
+	}
+
+	@Override
+	public void deleteCardroom(Long id) {
+		cardroomRepository.delete(id);
+	}
+
+	@Override
+	public Cardroom saveCardroom(Cardroom cardroom) {
+		fr.mikrethor.cardroom.ws.jpa.Cardroom saveCardroom = cardroomRepository
+				.save(mapper.map(cardroom, fr.mikrethor.cardroom.ws.jpa.Cardroom.class));
+		return mapper.map(saveCardroom, Cardroom.class);
+	}
+
+	@Override
+	public Cardroom updateCardroom(Cardroom cardroom) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

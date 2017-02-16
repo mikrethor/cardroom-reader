@@ -3,6 +3,7 @@ package fr.mikrethor.cardroom.ws;
 import java.util.List;
 
 import fr.mikrethor.cardroom.pojo.Account;
+import fr.mikrethor.cardroom.pojo.Cardroom;
 import fr.mikrethor.cardroom.pojo.Hand;
 import fr.mikrethor.cardroom.pojo.Player;
 
@@ -12,7 +13,7 @@ public interface RestOperations {
 
 	Hand saveHand(Hand hand);
 
-	boolean deletHand(Long id);
+	void deletHand(Long id);
 
 	List<Hand> saveHands(List<Hand> hands);
 
@@ -20,7 +21,7 @@ public interface RestOperations {
 
 	List<Account> getAccounts();
 
-	boolean deleteAccount(Long id);
+	void deleteAccount(Long id);
 
 	Account saveAccount(Account account);
 
@@ -32,6 +33,16 @@ public interface RestOperations {
 
 	Player getPlayer(Long id);
 
-	boolean deletPlayer(Long id);
+	void deletePlayer(Long id);
+
+	// --------------------Cardroom operations--------------------------
+
+	List<Cardroom> getCardrooms();
+
+	void deleteCardroom(Long id);
+
+	Cardroom saveCardroom(Cardroom cardroom);
+
+	Cardroom updateCardroom(Cardroom cardroom);
 
 }
