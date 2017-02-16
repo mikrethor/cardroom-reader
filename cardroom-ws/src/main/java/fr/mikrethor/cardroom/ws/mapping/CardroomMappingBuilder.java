@@ -14,6 +14,7 @@ public class CardroomMappingBuilder extends BeanMappingBuilder {
 	@Override
 	protected void configure() {
 		mapping(fr.mikrethor.cardroom.pojo.Cardroom.class, fr.mikrethor.cardroom.ws.jpa.Cardroom.class)
-				.fields("name", "name").fields("domain", "domain");
+				.exclude("players").exclude("accounts").fields("name", "name").fields("domain", "domain")
+				.fields("id", "id");
 	}
 }
